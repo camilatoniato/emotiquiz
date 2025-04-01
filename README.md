@@ -1,7 +1,13 @@
 # Emotiquiz
-Este é o repositóorio do Jogo
+**Documentação do jogo de terminal Emotiquiz**
 
-[Main](./main.md) - Aqui fica a documentação da função `Main`
+O código possui 3 arquivos, sendo eles a `Main`, o `Funções` e o `Struct`.
+
+Analisando a `Main`:
+
+No inicio do código estão as variáveis que serão utilizadas no decorrer do código:
+
+
 
 
 
