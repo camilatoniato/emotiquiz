@@ -189,5 +189,12 @@ func gabarito()->Bool{
                    |  ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═╝|
                    '-------------------------------------------------------' """)
             exit(0)
-     ```
 #### `func gameOver ()`:
+- Função que termina o jogo no caso do usuário não conseguir acertar o filme, sendo assim ele vai fazer com que as condições que eram `true` e que antes deixavam os dois `while` em repetição, e que faziam com que o jogo continuasse rodando, se tornem `false`:
+```
+func gameOver (){// função que termina o jogo
+    print ("O jogo acabou, você fez \(contadorPontuação) ponto(s)")
+    usuarioAcertouAResposta = true
+    continuarJogando = false
+}
+```
