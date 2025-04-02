@@ -94,3 +94,100 @@ repeat { //existem 3 tipos de while, o repeat permite que o while retorne para s
     } while !usuarioAcertouAResposta // tudo isso enquanto o usuário não acerta o nº de caracteres
 }
 ```
+#### `func dicas()`:
+- Função que utiliza a variável int `dicaAtual` para colocar uma condição se o jogo deve continuar ou não: cada vez que o usuário receber uma dica se soma 1 a essa variável, e caso `dicaAtual` seja maior ou igual a 3, o código seguirá para a `func gameOver()`. Além disso, para facilitar a jogabilidade, sempre que o jogador receber uma dica nova ele também receberá o glossário:
+```
+func dicas(){ 
+    if dicaAtual >= 3 { 
+        gameOver()
+    } else {
+        print("""
+              GLOSSÁRIO:
+              Utilize apenas os emojis abaixo durante o jogo
+
+              🎈         👦         ⚡️         🔴
+
+              🆚         😭         🧓         ❤️
+
+              🏠         🔫         🚢         🤡
+
+              🦉         🦇         🔵         💥
+
+              🚂         🌃         🧹         😎
+
+              🧔🏻‍♂️         🥶         🐶         😃
+
+              🧠         🥇         🚀         🕷️
+    
+    """)
+        print ("Dica: \(filmeSelecionado.dicasFilme[dicaAtual])")
+        dicaAtual += 1
+    }
+}
+```
+#### `func pegaResposta()`:
+- Função que pede e lê a reposta do usuário, transformando-a de uma `string` em uma `array` de `char`:
+```
+func gabarito()->Bool{ 
+    var resposta: Bool=false
+    var respostaCerta: Int
+    respostaCerta = 0
+    for i in caracteresGabarito{
+        for j in caracteresUsuario{
+            if (i == j){ 
+                respostaCerta += 1
+                print("Voce acertou o emoji \(i)")
+            }
+        }
+    }
+```
+#### `func gabarito()`:
+- Função que compara os caracteres da resposta certa com os digitados pelo usuário: a variável `respostaCerta` vai somar 1 a cada caracter similar das repostas e, caso ela for igual a 5, isso significa que o usuário acertou todos os caracteres, assim se somam 5 ao `contadorPontuação`. Detalhando ainda mais:
+     - `for` dentro do `for`: Essa é a condição que compara caracter por caracter, sendo assim ela pegará cada caracter do `caracteresGabarito` (i) e depois pegará cada caracter do `caracteresUsuario` (j) e se cria uma condição: `if` - se algum caracter i for igual à algum caracter j, se adiciona 1 ao `contadorPontuação` e imprime o "i" - que serão os caracteres similares entre as duas `arrays`. Deste modo se elimina a necessidade de o jogador acertar a ordem dos caracteres, ele sóprecisará quais serão os corretos:
+       ```
+       for i in caracteresGabarito{
+        for j in caracteresUsuario{
+            if (i == j){ // compara respostas
+                respostaCerta += 1
+                print("Voce acertou o emoji \(i)")
+            }
+        }
+    - `if else`: Essa é a condição que confere se o usuário acertou todos os caracteres: caso `respostaCerta` for igual a 5, significa que todos os caracteres e, em consequência, o filme. Sendo assim será printado o nome do filme selecionado e, em seguida será removido da `listaDeFilmes` o filme da posição previamente escolhida:
+      ```
+      if respostaCerta == 5{ // condição que ocorre se o usuário acertar os 5 caracteres
+        totalmenteCerto=true
+        print("Parabéns, você acertou! O filme era: \(filmeSelecionado.nomeFilme)")
+        resposta = true
+        contadorPontuação += 5
+        print ("Você tem \(contadorPontuação) ponto (s)!")
+        listaDeFilmes.remove(at: filmeSelecionadoPos)
+      ```
+      - E, caso ele não acerte os 5 caracteres, ele perderá 1 ponto:
+      ```
+        else { // condição que tira um ponto do jogador caso ele não acerte os 5 caracteres
+        contadorPontuação -= 1
+        print ("Você tem \(contadorPontuação) ponto (s)!")
+    }
+      ```
+    - `if`: Essa última condição definirá quando o jogador vencer o jogo por completo: como sempre que o usuário acertar um filme ele será removido da `listaDeFilmes`, caso o número de itens nessa lista seja igual a 0 significa que ele acertou todos e venceu o jogo. Sendo assim:
+      ```
+      if (listaDeFilmes.count == 0) {
+            print ("""
+                   .-------------------------------------------------------.
+                   |██╗   ██╗ ██████╗  ██████╗███████╗                     |
+                   |██║   ██║██╔═══██╗██╔════╝██╔════╝                     |
+                   |██║   ██║██║   ██║██║     █████╗                       |
+                   |╚██╗ ██╔╝██║   ██║██║     ██╔══╝                       |
+                   | ╚████╔╝ ╚██████╔╝╚██████╗███████╗                     |
+                   |  ╚═══╝   ╚═════╝  ╚═════╝╚══════╝                     |
+                   |                                                       |
+                   |██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗██╗   ██╗██╗|
+                   |██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝██║   ██║██║|
+                   |██║   ██║█████╗  ██╔██╗ ██║██║     █████╗  ██║   ██║██║|
+                   |╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██║   ██║╚═╝|
+                   | ╚████╔╝ ███████╗██║ ╚████║╚██████╗███████╗╚██████╔╝██╗|
+                   |  ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝ ╚═════╝ ╚═╝|
+                   '-------------------------------------------------------' """)
+            exit(0)
+     ```
+#### `func gameOver ()`:
